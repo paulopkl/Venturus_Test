@@ -88,6 +88,12 @@ npm start
 
 This test system can be used to build your own teams, being able to define a field formation and choose any player in the world you want.
 
+Available paths
+
+> - path \[default\] = "/teams", Project home page where the created teams are listed and allows the teams to be edited and deleted.
+> - path "/create/team", Page that allows the creation of a team.
+> - path "/edit/team", Page that allows editing an existing team.
+
 ## ⛏️ Built With <a name = "dependencies"></a>
 
 - [ReactJs](https://pt-br.reactjs.org/) - Web Framework
