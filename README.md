@@ -82,7 +82,7 @@ npm start
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+This test system can be used to build your own teams, being able to define a field formation and choose any player in the world you want.
 
 ## ⛏️ Built With <a name = "dependencies"></a>
 
