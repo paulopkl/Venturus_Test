@@ -84,26 +84,23 @@ and testing purposes. See [deployment](#deployment) for notes on how to deploy t
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
-
-```
-Give examples
-```
+- NPM, 
+- VSCode
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running.
+Step by Step.
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+At first moment you must install with:
 
 ```
-until finished
+npm install
+```
+
+And start this project with:
+
+```
+npm start
 ```
 
 ## 🎈 Usage <a name="usage"></a>
