@@ -53,8 +53,8 @@ This little system is for the user to display his team using any player he wants
 ## 🚀 Future Scope <a name = "future_scope"></a>
 
 Routes were made for future implementations, such as:
-> [X] path = "/login", For implementation of the login page.
-> [X] path = "/register", For implementation of the Signup page.
+> - path = "/login", For implementation of the login page.
+> - path = "/register", For implementation of the Signup page.
 
 Future Steps
 - Deploy the website and connected with some database and go up to some hosting platform.
