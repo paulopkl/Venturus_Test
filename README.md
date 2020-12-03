@@ -50,8 +50,7 @@ This little system is for the user to display his team using any player he wants
 
 ## 🚀 Future Scope <a name = "future_scope"></a>
 
-Write about what you could not develop during the course of the Hackathon; and about what your project can achieve
-in the future.
+Deploy the website and connected with some database and go up to some hosting platform.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
