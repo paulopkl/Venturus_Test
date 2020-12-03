@@ -20,7 +20,6 @@ Project developed as a test for the company venturus, the intuition of the proje
 
 ## 📝 Table of Contents
 
-- [Problem Statement](#problem_statement)
 - [Idea / Solution](#idea)
 - [Dependencies](#dependencies)
 - [Limitations](#limitations)
@@ -31,34 +30,23 @@ Project developed as a test for the company venturus, the intuition of the proje
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgments)
 
-## 🧐 Problem Statement <a name = "problem_statement"></a>
-
-It is useful to design and follow a specific format when writing a problem statement. While there are several options
-for doing this, the following is a simple and straightforward template often used in Business Analysis to maintain
-focus on defining the problem.
-
-- IDEAL: This section is used to describe the desired or “to be” state of the process or product. At large, this section
-  should illustrate what the expected environment would look like once the solution is implemented.
-- REALITY: This section is used to describe the current or “as is” state of the process or product.
-- CONSEQUENCES: This section is used to describe the impacts on the business if the problem is not fixed or improved upon.
-  This includes costs associated with loss of money, time, productivity, competitive advantage, and so forth.
-
-Following this format will result in a workable document that can be used to understand the problem and elicit
 requirements that will lead to a winning solution.
 
 ## 💡 Idea / Solution <a name = "idea"></a>
 
-This section is used to describe potential solutions.
+The idea is exclusively from Venturus.
 
-Once the ideal, reality, and consequences sections have been
-completed, and understood, it becomes easier to provide a solution for solving the problem.
+This little system is for the user to display his team using any player he wants.
 
 ## ⛓️ Limitations <a name = "limitations"></a>
 
-- Describe each limitation in detailed:
-> - Limitations
+- Limitations:
+> - The Top5 table should show a list containing the highest and lowest ages of its players, but it is currently showing only a list of the highest and lowest ages of the last team creation
+> - No unit tests have been written.
+> - The code is not 100% clean.
+> - Everything is saved in localStorage, but the recommended for a real project would be NodeJs + MongoDB
 - Why each limitation exists
-
+> - I didn't have much time to solve everything, but I have enough skills to solve it.
 
 ## 🚀 Future Scope <a name = "future_scope"></a>
 
