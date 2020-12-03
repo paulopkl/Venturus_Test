@@ -9,7 +9,7 @@ import { Table, Tooltip, OverlayTrigger, FormControl } from 'react-bootstrap';
 import styled from 'styled-components';
 import CardComponent from './Card';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const CardHeader = styled.div`
     height: 11vh;
@@ -74,22 +74,23 @@ const TableData = styled.td`
 `;
 
 const MyTeams = () => {
+    const history = useHistory();
 
-    const [data, setData] = useState([{ name: '', description: '' }]);
-    const [fieldOne, setFieldOne] = useState('');
-    const [fieldTwo, setFieldTwo] = useState('');
+    const [data, setData] = useState([
+        { teamName: '', description: '', url: '', teamType: '', tags: '', formation: '' }
+    ]);
+    const [fieldOne, setFieldOne] = useState('Name');
+    const [fieldTwo, setFieldTwo] = useState('Description');
     
     useEffect(() => {
-        const teams = [
-            { name: 'Barcelona', description: 'Barcelona Squad' },
-            { name: 'Real Madrid', description: 'Real Madrid' },
-            { name: 'Milian', description: 'Milian Squad' },
-            { name: 'Liverpool', description: 'Liverpool Squad' },
-            { name: 'Bayen Munich', description: 'Bayen Munich Squad' },
-            { name: 'Lazio', description: 'Lazio Squad' },
-        ];
 
-        setData(teams);
+        let storageTeams = localStorage.getItem('teams');
+
+        if (JSON.parse(storageTeams) === 'null') {
+            localStorage.removeItem('teams') 
+        } else {
+            setData(JSON.parse(storageTeams));
+        }
     }, []);
 
     const renderTooltip = (props, edit) => (
@@ -101,6 +102,12 @@ const MyTeams = () => {
     const removeTeam = id => {
         let team = [...data];
         team.splice(id, 1);
+
+        if(team.length === 0) {
+            localStorage.removeItem('teams');
+        } else {
+            localStorage.setItem('teams', JSON.stringify(team));
+        }
 
         setData(team);
     }
@@ -117,7 +124,7 @@ const MyTeams = () => {
         <CardComponent styles={{ width: '45vw', minHeight: '90vh' }}>
             <CardHeader>
                 <Title>My teams</Title>
-                <AddButton to="/createteam">
+                <AddButton to="/create/team">
                     <AiOutlinePlus color="white" size={26} />
                 </AddButton>
             </CardHeader>
@@ -126,32 +133,57 @@ const MyTeams = () => {
                     <thead>
                         <tr>
                             <th>
-                                <FormControl as="select" className="my-1 mr-sm-2" style={{ border: 'none', 
-                                    borderRight: '1px solid #DDD', padding: 0 }} custom 
-                                        onChange={handleSelect}>
-                                            <option value="Name">Name</option>
-                                            <option value="Description">Description</option>
+                                <FormControl as="select" className="my-1 mr-sm-2 p-0" style={{ border: 'none', 
+                                    borderRight: '1px solid #DDD' }} custom onChange={handleSelect}>
+                                        <option value="Name">Name</option>
+                                        <option value="Description">Description</option>
+                                        <option value="Url">Url</option>
+                                        <option value="TeamType">TeamType</option>
+                                        <option value="Tags">Tags</option>
+                                        <option value="Formation">Formation</option>
                                 </FormControl>
                             </th>
                             <th colSpan={2}>
-                                <FormControl as="select" className="my-1 mr-sm-2" style={{ border: 'none',
-                                    padding: 0 }} custom onChange={e => handleSelect(e, 'Two')}>
+                                <FormControl as="select" className="my-1 mr-sm-2 p-0" style={{ border: 'none' }}
+                                    custom onChange={e => handleSelect(e, 'Two')}>
                                         <option value="Description">Description</option>
                                         <option value="Name">Name</option>
+                                        <option value="Url">Url</option>
+                                        <option value="TeamType">TeamType</option>
+                                        <option value="Tags">Tags</option>
+                                        <option value="Formation">Formation</option>
                                 </FormControl>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((team, id) => (
-                            <TableRow>
-                                <TableData>{fieldOne === 'Name' ? team.name : team.description}</TableData>
-                                <TableData>{fieldTwo === 'Name' ? team.name : team.description}</TableData>
+                        {data && data.map((team, i) => (
+                            <TableRow key={i}>
+                                <TableData>
+                                    {
+                                        fieldOne === 'Name' ? team.teamName 
+                                            : fieldOne === 'Description' ? team.description
+                                            : fieldOne === 'Url' ? team.url
+                                            : fieldOne === 'TeamType' ? team.teamType
+                                            : fieldOne === 'Tags' ? team.tags
+                                            : team.formation
+                                    }
+                                </TableData>
+                                <TableData>
+                                    {
+                                        fieldTwo === 'Name' ? team.teamName 
+                                            : fieldTwo === 'Description' ? team.description
+                                            : fieldTwo === 'Url' ? team.url
+                                            : fieldTwo === 'TeamType' ? team.teamType
+                                            : fieldTwo === 'Tags' ? team.tags
+                                            : team.formation
+                                    }
+                                </TableData>
                                 <TableData icons>
                                     <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }}
                                         overlay={props => renderTooltip(props, "Remove")}>
                                                 <FaTrash size={11} style={{ cursor: "pointer" }}
-                                                    onClick={() => removeTeam(id)} />
+                                                    onClick={() => removeTeam(i)} />
                                         </OverlayTrigger>
                                     <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }}
                                         overlay={props => renderTooltip(props, "Share")}>
@@ -159,7 +191,8 @@ const MyTeams = () => {
                                     </OverlayTrigger>
                                     <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }}
                                         overlay={props => renderTooltip(props, "Edit")}>
-                                            <FaPen size={12} style={{ cursor: "pointer" }} />
+                                            <FaPen size={12} style={{ cursor: "pointer" }} 
+                                                onClick={() => history.push(`/edit/team/${team.id}`)} />
                                     </OverlayTrigger>
                                 </TableData>
                             </TableRow>

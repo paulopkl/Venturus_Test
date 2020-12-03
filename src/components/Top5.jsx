@@ -83,28 +83,29 @@ const Paragraph = styled.p`
 `;
 
 const Top5 = () => {
-    const [HighestAge, setHighestAge] = useState([{ name: '', age: 0 }]);
-    const [LowestAge, setLowestAge] = useState([{ name: '', age: 0 }]);
+    const [HighestAge, setHighestAge] = useState([{ player_name: '', nationality: '', age: 0 }]);
+    const [LowestAge, setLowestAge] = useState([{ player_name: '', nationality: '', age: 0 }]);
+
 
     useEffect(() => {
-        const data = [
-            { name: 'Inter Milian', age: 31.9 },
-            { name: 'APOEL Nicosia', age: 31.7 },
-            { name: 'AC Milian', age: 31.6 },
-            { name: 'Besiktas JK', age: 31.4 },
-            { name: 'Olympiacos Piraeus', age: 31.3 },
-        ];
-        
-        const data2 = [            
-            { name: 'Zalgiris Vilnius', age: 21.1 },
-            { name: 'Arsenal FC', age: 21.6 },
-            { name: 'Ajax Amsterdam', age: 22.0 },
-            { name: 'FC Nantes', age: 22.1 },
-            { name: 'CSKA Moscow', age: 22.5 },
-        ];
+        let storageTeams = localStorage.getItem('teams');
 
-        setHighestAge(data);
-        setLowestAge(data2);
+        if (storageTeams) {
+
+            storageTeams = JSON.parse(storageTeams);
+
+            let playersTeam = storageTeams[storageTeams.length - 1].playersTeam;
+
+            playersTeam.sort((a, b) => {
+                if (a.age > b.age) return 1;
+                if (a.age < b.age) return -1;
+
+                return 0;
+            });
+
+            setHighestAge(playersTeam.slice(5, 10).reverse()); // 6, 7, 8, 9, 10
+            setLowestAge(playersTeam.slice(0, 5)); // 0, 1, 2, 4, 5
+        }
     }, []);
 
     return (
@@ -116,14 +117,14 @@ const Top5 = () => {
             <CardBody>
                 <Container>
                     <Row>
-                        <Col style={{ paddingLeft: 0, paddingRight: '0.75rem' }}>
+                        <Col className="pl-0 pr-1">
                             <Paragraph>Highest avg age</Paragraph>
                             <TableLeft>
-                                <Table responsive style={{ margin: 0 }}>
+                                <Table className="m-0" responsive>
                                     <Tbody>
-                                        {HighestAge.map(p => (
-                                            <TableRow>
-                                                <td>{p.name}</td>
+                                        {HighestAge.map((p, i) => (
+                                            <TableRow key={i}>
+                                                <td>{p.player_name}</td>
                                                 <th>{(p.age).toFixed(1)}</th>
                                             </TableRow>
                                         ))}
@@ -134,11 +135,11 @@ const Top5 = () => {
                         <Col style={{ paddingLeft: '0.75rem', paddingRight: 0 }}>
                             <Paragraph>Lowest avg age</Paragraph>
                             <TableRight>
-                                <Table responsive style={{ margin: 0 }}>
+                                <Table className="m-0" responsive>
                                     <tbody>
-                                        {LowestAge.map(p => (
-                                            <TableRow>
-                                                <td>{p.name}</td>
+                                        {LowestAge.map((p, i) => (
+                                            <TableRow key={i}>
+                                                <td>{p.player_name}</td>
                                                 <th>{(p.age).toFixed(1)}</th>
                                             </TableRow>
                                         ))}

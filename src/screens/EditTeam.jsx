@@ -6,9 +6,11 @@ import ContentComponent from '../components/Content';
 
 import { IoClose } from 'react-icons/io5';
 
+import './Team.css';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
+
 import { AiOutlinePlus } from 'react-icons/ai';
 
 import './Team.css';
@@ -71,12 +73,6 @@ const Check = styled(FormCheck)`
 
 const Flex = styled.div` display: flex; flex-wrap: wrap; `;
 
-const Scroll = styled.div`
-    overflow-y: scroll;
-    max-height: 75vh;
-    padding-right: 1vw;
-`;
-
 const Card = styled.div`
     width: 100%;
     margin-bottom: 2vh;
@@ -98,6 +94,7 @@ const SoccerField = styled.div`
     padding: 7%;
     border-radius: 5px;
     background: linear-gradient(to bottom, rgb(153,52,125), rgb(120,44,127));
+    overflow: scroll;
 
     display: grid;
     grid-template-columns: auto auto auto;
@@ -137,19 +134,20 @@ const ToastCard = styled.div`
     z-index: 9999999;
 `;
 
-const CreateTeam = () => {
+const CreateTeam = props => {
     const history = useHistory();
 
     const [validated, setValidated] = useState(false);
+
     const [show, setShow] = useState(false);
-    const [showErrorTeam, setShowErrorTeam] = useState(false);
+
     const [userData, setUserData] = useState({ 
-        id: 0, // <== Used in MyTeams only
+        id: props.match.params.id,
         teamName: '', 
         url: '', 
         description: '', 
-        teamType: 'Fantasy', // Fantasy || Real
-        tags: '',
+        teamType: 'Fantasy', // Real || Fantasy
+        tags: 'BR,PTW,Attack',
         formation: '' 
     });
     const [nameSearch, setNameSearch] = useState('Neymar');
@@ -158,6 +156,23 @@ const CreateTeam = () => {
 
     useEffect(() => {
         getPlayers();
+
+        let storageTeams = localStorage.getItem('teams');
+        storageTeams = JSON.parse(storageTeams);
+
+        let team = storageTeams[props.match.params.id - 1];
+
+        setUserData({ 
+            ...userData, 
+            teamName: team.teamName,
+            url: team.url, 
+            description: team.description, 
+            teamType: team.teamType,
+            tags: team.tags,
+            formation: team.formation 
+        });
+
+        setPlayersTeam(team.playersTeam);
     }, []);
 
     const getPlayers = playerName => {
@@ -171,6 +186,7 @@ const CreateTeam = () => {
         };
 
         axios.request(options).then(resp => {
+            console.log(resp.data.api.players);
             setPlayers(resp.data.api.players);
         }).catch(err => {
             console.error(err);
@@ -238,24 +254,23 @@ const CreateTeam = () => {
         event.preventDefault();
 
         if (form.checkValidity() === false || validateUrl()) {
-            event.stopPropagation();
-            setValidated(true);
-        } else if (playersTeam.length < 10) {
-            event.stopPropagation();
-            setShowErrorTeam(true);
+          event.stopPropagation();
+          setValidated(true);
         } else {
-            let allTeams = localStorage.getItem('teams');
-            allTeams = JSON.parse(allTeams);
+            let storageTeams = localStorage.getItem('teams');
+            storageTeams = JSON.parse(storageTeams);
 
-            if(allTeams || allTeams !== null) {
-                allTeams.push({ ...userData, id: allTeams.length + 1, playersTeam });
-                let newTeam = JSON.stringify(allTeams);
+            if(storageTeams || storageTeams !== null) {
+                storageTeams[userData.id - 1] = { ...userData, playersTeam };
+                let newTeam = JSON.stringify(storageTeams);
+                
                 localStorage.setItem('teams', newTeam);
                 history.push('/team');
             } else {
                 let newTeam = []
-                newTeam.push({ ...userData, id: newTeam.length + 1, playersTeam });
+                newTeam[userData.id - 1] = { ...userData, playersTeam };
                 newTeam = JSON.stringify(newTeam); 
+
                 localStorage.setItem('teams', newTeam);
                 history.push('/team');
             }
@@ -281,11 +296,11 @@ const CreateTeam = () => {
 
         event.target.classList.add('over');
 
-        let containsSVG = event.target.firstChild
+        let containsElement = event.target.firstChild
             && event.target.firstChild.firstChild 
-            && event.target.firstChild.firstChild.tagName === 'svg';
+            && event.target.firstChild.firstChild;
 
-        if(containsSVG && containsSVG !== null) {
+        if(containsElement && containsElement !== null) {
             event.target.removeChild(event.target.firstChild);
         }
     }
@@ -315,22 +330,6 @@ const CreateTeam = () => {
         setPlayersTeam(arrayTeam);
 
         event.target.classList.remove('over');
-    }
-
-    const Fields = qtd => {
-        let arr = [];
-
-        for (let i = 0; i <= qtd; i++) {
-            arr.push(i);
-        }
-
-        return arr.map((arr, i) => (
-            <div key={arr} className="position dropzone" onDrop={e => dropCard(e, i)} onDragOver={overCard}>
-                <div className="selected">
-                    <AiOutlinePlus color="white" size={26} />
-                </div>
-            </div>
-        ));
     }
 
     return (
@@ -434,6 +433,7 @@ const CreateTeam = () => {
                                             custom
                                             style={{ maxWidth: '30%', margin: '0 10%' }} 
                                             as="select" 
+                                            value={userData.formation}
                                             onChange={e => setUserData({ ...userData, formation: e.target.value })}>
                                                 <option value="3-2-2-3">3 - 2 - 2 - 3</option>
                                                 <option value="3-2-3-1">3 - 2 - 3 - 1</option>
@@ -448,7 +448,14 @@ const CreateTeam = () => {
                                         </FormControl>
                                     </Flex>
                                     <SoccerField>
-                                        {Fields(9)}
+                                        {playersTeam.map((p, i) => (
+                                            <div key={p} className="position dropzone" 
+                                                onDrop={e => dropCard(e, i)} onDragOver={overCard}>
+                                                    <div className="selected">
+                                                        <Span lilas>{p.player_name}</Span>
+                                                    </div>
+                                            </div>
+                                        ))}
                                     </SoccerField>
                                     <Button type="submit">Save</Button>
                                 </Col>
@@ -459,31 +466,29 @@ const CreateTeam = () => {
                                             placeholder="Neymar" minLength={3} />
                                         <Button type="button" onClick={searchPlayer}>Pesquisar</Button>
                                     </FormGroup>
-                                    <Scroll>
-                                        {players.map((p, i) => (
-                                            <Card key={i} draggable={true} onDragStart={dragstart}
-                                                className="Card" onDragEnd={dragend}>
-                                                    <Flex>
-                                                        <Col md={10} className="p-0 w-100">
-                                                            <Paragraph>
-                                                                <Span bold>Name: </Span>
-                                                                <Span lilas>{p.player_name}</Span>
-                                                            </Paragraph>
-                                                            <Paragraph>
-                                                                <Span bold>Nationality: </Span>
-                                                                <Span lilas>{p.nationality || '[Not Defined]'}</Span>
-                                                            </Paragraph>
-                                                        </Col>
-                                                        <Col className="p-0">
-                                                            <Paragraph>
-                                                                <Span bold>Age: </Span>
-                                                                <Span lilas>{p.age}</Span>
-                                                            </Paragraph>
-                                                        </Col>
-                                                    </Flex>
-                                            </Card>
-                                        ))}
-                                    </Scroll>
+                                    {players.map((p, i) => (
+                                        <Card key={i} draggable={true} onDragStart={dragstart}
+                                            className="Card" onDragEnd={dragend}>
+                                                <Flex>
+                                                    <Col md={10} className="p-0 w-100">
+                                                        <Paragraph>
+                                                            <Span bold>Name: </Span>
+                                                            <Span lilas>{p.player_name}</Span>
+                                                        </Paragraph>
+                                                        <Paragraph>
+                                                            <Span bold>Nationality: </Span>
+                                                            <Span lilas>{p.nationality || '[Not Defined]'}</Span>
+                                                        </Paragraph>
+                                                    </Col>
+                                                    <Col className="p-0">
+                                                        <Paragraph>
+                                                            <Span bold>Age: </Span>
+                                                            <Span lilas>{p.age}</Span>
+                                                        </Paragraph>
+                                                    </Col>
+                                                </Flex>
+                                        </Card>
+                                    ))}
                                 </Col>
                             </Row>
                         </Container>
@@ -497,16 +502,6 @@ const CreateTeam = () => {
                     </Toast.Header>
                     <Toast.Body className="text-danger">
                         Oops, you must type 3 characters in minimal to search!
-                    </Toast.Body>
-                </Toast>
-            </ToastCard>
-            <ToastCard>
-                <Toast onClose={() => setShowErrorTeam(false)} show={showErrorTeam} delay={3000} autohide>
-                    <Toast.Header>
-                        <strong className="mr-auto text-danger">Warnign</strong>
-                    </Toast.Header>
-                    <Toast.Body className="text-danger">
-                        Please enter a valid players team. equipe length must be equals to 10
                     </Toast.Body>
                 </Toast>
             </ToastCard>

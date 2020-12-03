@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import Divider from '../assets/divider.png';
@@ -6,17 +6,6 @@ import FacePlayer from '../assets/facePlayer.png';
 
 import styled from 'styled-components';
 import CardComponent from './Card';
-
-const Card = styled.div`
-    width: 45vw;
-    min-height: 38vh;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(to top, rgb(101,47,135), rgb(187,62,124));
-    border-width: 0;
-    border-radius: 15px;
-    box-shadow: 0px 0px 5px #eee;
-`;
 
 const ContainerWithImage = styled(Container)`
     width: 100%;
@@ -74,33 +63,80 @@ const Rate = styled.p`
 `;
 
 const RatePicker = () => {
+    const [ratePicked, setRatePicked] = useState({ mostPicked: '75%', lessPicked: '25%' });
+
+    useEffect(() => {
+        let storageTeams = localStorage.getItem('teams');
+        
+        if (storageTeams) {
+            
+            storageTeams = JSON.parse(storageTeams);
+
+            let playersTeam = storageTeams[storageTeams.length - 1].playersTeam;
+
+            playersTeam.sort((a, b) => {
+                if (a.age > b.age) return 1;
+                if (a.age < b.age) return -1;
+
+                return 0;
+            });
+
+            let rateList = countItems(playersTeam);
+
+            let arrayRate = Object.values(rateList).sort()
+
+            let oneRate = 100 / playersTeam.length;
+
+
+            let mostPicked = arrayRate[arrayRate.length - 1];
+            mostPicked = (mostPicked * oneRate).toFixed(0);
+            mostPicked = `${mostPicked}%`
+            
+            let lessPicked = arrayRate[0];
+            lessPicked = (lessPicked * oneRate).toFixed(0);
+            lessPicked = `${lessPicked}%`
+
+            setRatePicked({ mostPicked, lessPicked });
+        }
+    }, []);
+
+    const countItems = arr => {
+        const countMap = Object.create(null);
+    
+        for (const element of arr) {
+            if (!countMap[element.player_name]) {
+                // Se ainda não existir elemento, definimos como um, já que
+                // estamos na primeira ocorrência.
+                countMap[element.player_name] = 1;
+            } else {
+                // Caso contrário, incrementamos um no número atual.
+                countMap[element.player_name] += 1;
+            }
+        }
+        return countMap;
+    }
+
     return (
         <CardComponent styles={{ width: '45vw', minHeight: '38vh', marginTop: '1.5rem', marginBottom: '1.5rem',
-        background: 'linear-gradient(to top, rgb(101,47,135), rgb(187,62,124))' }}>
-        {/* <Card> */}
-            <ContainerWithImage>
-                <Row>
-                    <ColWithFlex>
-                        <Paragraph>
-                            Most picked player
-                        </Paragraph>
-                        <PlayerInfo>
-                            <ImgHighestRate src={FacePlayer} alt="Face Player" />
-                            <Rate>75%&nbsp;&nbsp;&nbsp;</Rate>
-                        </PlayerInfo>
-                    </ColWithFlex>
-                    <ColWithFlex>
-                        <Paragraph>
-                            Less picked player
-                        </Paragraph>
-                        <PlayerInfo>
-                            <ImgLowestRate src={FacePlayer} alt="Face Player" />
-                            <Rate>25%&nbsp;&nbsp;&nbsp;</Rate>
-                        </PlayerInfo>
-                    </ColWithFlex>
-                </Row>
-            </ContainerWithImage>
-        {/* </Card> */}
+            background: 'linear-gradient(to top, rgb(101,47,135), rgb(187,62,124))' }}>
+                <ContainerWithImage>
+                    <Row>
+                        <ColWithFlex>
+                            <Paragraph>Most picked player</Paragraph>
+                            <PlayerInfo>
+                                <ImgHighestRate src={FacePlayer} alt="Face Player" />
+                                <Rate>{ ratePicked.mostPicked }&nbsp;&nbsp;&nbsp;</Rate>
+                            </PlayerInfo>
+                        </ColWithFlex>
+                        <ColWithFlex>
+                            <Paragraph>Less picked player</Paragraph>
+                            <PlayerInfo>
+                                <ImgLowestRate src={FacePlayer} alt="Face Player" />
+                                <Rate>{ ratePicked.lessPicked }&nbsp;&nbsp;&nbsp;</Rate>
+                            </PlayerInfo>
+                        </ColWithFlex>
+                    </Row>
+                </ContainerWithImage>
         </CardComponent>
     );
 }

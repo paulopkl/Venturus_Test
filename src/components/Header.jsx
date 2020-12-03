@@ -4,7 +4,6 @@ import Logo from '../assets/logo.jpg';
 import UserImage from '../assets/userImage.png';
 
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
 
 const Menu = styled.nav`
     height: 7.5vh;
@@ -51,7 +50,6 @@ const FlexRight = styled.div`
 `;
 
 const Header = () => {
-    const history = useHistory();
 
     const [user, setUser] = useState({ name: '', imageUrl: '' });
 

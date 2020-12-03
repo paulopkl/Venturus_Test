@@ -1,0 +1,39 @@
+.textArea {
+    resize: none !important;
+    overflow: hidden;
+}
+
+.isDragging {
+    opacity: 0.3;
+}
+
+.position {
+    box-sizing: border-box;
+    height: 11vh;
+    width: 11vh;
+    border-radius: 50%;
+    border: 2px dashed white;
+    padding: 5px;
+    margin: auto 0;
+    z-index: 9999999;
+}
+
+.selected {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: #FFFFFF90;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.highlight {
+    transition: 1s;
+    background-color: white;
+}
+
+.over {
+    background-color: #4cd13711;
+}
