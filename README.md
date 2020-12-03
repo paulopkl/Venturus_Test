@@ -1,4 +1,4 @@
-<p align="center">
+<p>
   <img src="./src/assets/Capture_1.png" width="50%" alt="Project logo" rel="noopener">
   <img src="./src/assets/Capture_2.png" width="50%" alt="Project logo 2" rel="noopener">
   <img src="./src/assets/Capture_3.png" width="50%" alt="Project logo 3" rel="noopener">
