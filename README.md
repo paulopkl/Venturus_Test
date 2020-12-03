@@ -15,15 +15,16 @@
 
 ---
 
-<p align="center"> Few lines describing your project.
-    <br> 
+<p align="center"> 
+Project developed as a test for the company venturus, the intuition of the project is to demonstrate my knowledge in Frontend.<br>
 </p>
 
 ## 📝 Table of Contents
 
 - [Problem Statement](#problem_statement)
 - [Idea / Solution](#idea)
-- [Dependencies / Limitations](#limitations)
+- [Dependencies](#dependencies)
+- [Limitations](#limitations)
 - [Future Scope](#future_scope)
 - [Setting up a local environment](#getting_started)
 - [Usage](#usage)
@@ -54,7 +55,18 @@ This section is used to describe potential solutions.
 Once the ideal, reality, and consequences sections have been
 completed, and understood, it becomes easier to provide a solution for solving the problem.
 
-## ⛓️ Dependencies / Limitations <a name = "limitations"></a>
+## ⛓️ Dependencies <a name = "dependencies"></a>
+
+- react = Framework used, 
+- styled-components = Most used,
+- bootstrap, 
+- react-bootstrap, 
+- axios = to fetch API, 
+- react-icons, 
+- react-router-dom,
+- web-vitals
+
+## ⛓️ Limitations <a name = "limitations"></a>
 
 - What are the dependencies of your project?
 - Describe each limitation in detailed but concise terms
