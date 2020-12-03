@@ -27,7 +27,6 @@ Project developed as a test for the company venturus, the intuition of the proje
 - [Future Scope](#future_scope)
 - [Setting up a local environment](#getting_started)
 - [Usage](#usage)
-- [Technology Stack](#tech_stack)
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgments)
@@ -53,17 +52,6 @@ This section is used to describe potential solutions.
 
 Once the ideal, reality, and consequences sections have been
 completed, and understood, it becomes easier to provide a solution for solving the problem.
-
-## ⛓️ Dependencies <a name = "dependencies"></a>
-
-- React = Framework used, 
-- Styled-components = Most used,
-- Bootstrap, 
-- React-bootstrap, 
-- Axios = to fetch API, 
-- React-icons, 
-- React-router-dom,
-- Web-vitals
 
 ## ⛓️ Limitations <a name = "limitations"></a>
 
@@ -107,12 +95,14 @@ npm start
 
 Add notes about how to use the system.
 
-## ⛏️ Built With <a name = "tech_stack"></a>
+## ⛏️ Built With <a name = "dependencies"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [ReactJs](https://pt-br.reactjs.org/) - Web Framework
+- [axios](https://www.npmjs.com/package/axios) - to fetch API
+- [React-icons](https://react-icons.github.io/react-icons/) - to use svg icons
+- [Styled-components](https://styled-components.com/) - Amazing stylizing method
+- [Bootstrap](https://getbootstrap.com/) - Bootstrap 
+- [React-bootstrap](https://react-bootstrap.github.io/) - way to merge the bootstrap with react
 
 ## ✍️ Authors <a name = "authors"></a>
 
