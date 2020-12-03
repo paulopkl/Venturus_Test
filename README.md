@@ -1,12 +1,10 @@
 <p align="center">
-  <a href="" rel="noopener">
- <img src="https://i.imgur.com/AZ2iWek.png" alt="Project logo"></a>
+  <img src="./src/assets/Capture1.png" alt="Project logo" rel="noopener">
 </p>
-<h3 align="center">squad</h3>
+<h3 align="center">Squad</h3>
 
 <div align="center">
 
-![](./src/assets/Capture1.png)
 [![Hackathon](https://img.shields.io/badge/hackathon-name-orange.svg)](http://hackathon.url.com)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
