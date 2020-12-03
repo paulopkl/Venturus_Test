@@ -1,5 +1,7 @@
 <p align="center">
   <img src="./src/assets/Capture1.png" alt="Project logo" rel="noopener">
+  <img src="./src/assets/Capture2.png" alt="Project logo" rel="noopener">
+  <img src="./src/assets/Capture3.png" alt="Project logo" rel="noopener">
 </p>
 <h3 align="center">Squad</h3>
 
