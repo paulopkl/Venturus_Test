@@ -44,6 +44,7 @@ This little system is for the user to display his team using any player he wants
 
 - Limitations:
 > - The Top5 table should show a list containing the highest and lowest ages of its players, but it is currently showing only a list of the highest and lowest ages of the last team creation
+> - The team formation field is still not rendering the visual formation of the team
 > - No unit tests have been written.
 > - The code is not 100% clean.
 > - Everything is saved in localStorage, but the recommended for a real project would be NodeJs + MongoDB
