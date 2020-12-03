@@ -103,6 +103,16 @@ const SoccerField = styled.div`
     grid-template-columns: auto auto auto;
     grid-gap: 50px;
     grid-column-gap: 80px;
+    
+    @media(max-width: 500px) {   
+        grid-gap: 20px;
+        grid-column-gap: 60px;
+        
+        @media(max-width: 450px) {   
+            grid-gap: 10px;
+            grid-column-gap: 20px;
+        }
+    }
 `;
 
 const Button = styled.button`
@@ -425,14 +435,14 @@ const CreateTeam = () => {
                             </Row>
                         </Container>
                         <TitleBody>CONFIGURE SQUAD</TitleBody>
-                        <Container style={{ margin: '8vh auto' }}>
+                        <Container style={{ margin: '8vh auto 2vh auto' }}>
                             <Row>
-                                <Col md={6} className="pl-4 pr-5 mt-3">
+                                <Col md={6} sm={12} className="pl-md-4 pr-md-5 mt-3 px-sm-1 responsive">
                                     <Flex style={{ marginBottom: '5vh', alignItems: 'center' }}>
                                         <Label style={{ margin: 0 }}>Formation</Label>
                                         <FormControl 
+                                            className="select"
                                             custom
-                                            style={{ maxWidth: '30%', margin: '0 10%' }} 
                                             as="select" 
                                             onChange={e => setUserData({ ...userData, formation: e.target.value })}>
                                                 <option value="3-2-2-3">3 - 2 - 2 - 3</option>
@@ -450,9 +460,9 @@ const CreateTeam = () => {
                                     <SoccerField>
                                         {Fields(9)}
                                     </SoccerField>
-                                    <Button type="submit">Save</Button>
+                                    
                                 </Col>
-                                <Col md={6} className="pl-5 pr-4">
+                                <Col md={6} sm={12} className="pl-md-5 pr-md-4">
                                     <FormGroup className="mb-4">
                                         <Label>Search Players</Label>
                                         <FormControl type="text" onChange={e => setNameSearch(e.target.value)} 
@@ -484,6 +494,13 @@ const CreateTeam = () => {
                                             </Card>
                                         ))}
                                     </Scroll>
+                                </Col>
+                            </Row>
+                        </Container>
+                        <Container>
+                            <Row>
+                                <Col md={6} className="pl-4 pr-md-5">
+                                    <Button type="submit">Save</Button>
                                 </Col>
                             </Row>
                         </Container>

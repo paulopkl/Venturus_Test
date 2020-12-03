@@ -7,7 +7,11 @@ const Content = styled.main`
 
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    
+    @media(max-width: 1200px) {
+        flex-direction: column;;
+        align-items: center;
+    }
 `;
 
 const ContentComponent = props => {

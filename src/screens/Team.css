@@ -37,3 +37,20 @@
 .over {
     background-color: #4cd13711;
 }
+
+
+/* @media(max-width: 1080px){
+    
+    .responsive {
+        flex: 0 0 100% !important;
+    }
+} */
+
+@media(max-width: 1000px){
+    
+    .select {
+        max-width: 30%; 
+        margin: 0 10%; 
+    }
+}
+

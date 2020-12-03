@@ -13,15 +13,25 @@ const ContainerWithImage = styled(Container)`
     background-image: url(${Divider});
     background-position: center; 
     background-repeat: no-repeat;
+    background-size: 25% 100%;
     padding: 2.5rem;
 `;
 
 const ColWithFlex = styled(Col)`
-    padding: 0 2rem 0 3.5rem;
-
+    padding: 0 2rem 0 3rem;
+    
     display: flex;
     justify-content: center;
     flex-direction: column;
+    
+    @media(max-width: 1000px) {
+        padding: 0 15vw;
+        
+        @media(max-width: 410px) {
+            padding: 0;
+            display: block;
+        }
+    }
 `;
 
 const Paragraph = styled.p`
@@ -118,9 +128,10 @@ const RatePicker = () => {
 
     return (
         <CardComponent styles={{ width: '45vw', minHeight: '38vh', marginTop: '1.5rem', marginBottom: '1.5rem',
-            background: 'linear-gradient(to top, rgb(101,47,135), rgb(187,62,124))' }}>
+            background: 'linear-gradient(to top, rgb(101,47,135), rgb(187,62,124))',
+            display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                 <ContainerWithImage>
-                    <Row>
+                    <Row className="flex-md-row d-md-flex d-sm-block">
                         <ColWithFlex>
                             <Paragraph>Most picked player</Paragraph>
                             <PlayerInfo>

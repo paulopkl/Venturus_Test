@@ -2,15 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Col, Container, Row, Table } from 'react-bootstrap';
 import styled from 'styled-components';
-
-const Card = styled.section`
-    width: 45vw;
-    height: auto;
-    background-color: rgb(255, 255, 255);
-    border-width: 0;
-    border-radius: 15px;
-    box-shadow: 0px 0px 5px #eee;
-`;
+import CardComponent from './Card';
 
 const CardHeader = styled.div`
     height: 11vh;
@@ -109,15 +101,15 @@ const Top5 = () => {
     }, []);
 
     return (
-        <Card>
+        <CardComponent styles={{ width: '45vw', height: 'auto' }}>
             <CardHeader>
                 <Title>Top 5</Title>
                 <div style={{ visibility: 'hidden' }}>Hire me Please!!</div>
             </CardHeader>
             <CardBody>
                 <Container>
-                    <Row>
-                        <Col className="pl-0 pr-1">
+                    <Row style={{ display: 'flex' }}>
+                        <Col md={6} sm={12} className="pl-0 pr-1">
                             <Paragraph>Highest avg age</Paragraph>
                             <TableLeft>
                                 <Table className="m-0" responsive>
@@ -132,7 +124,7 @@ const Top5 = () => {
                                 </Table>
                             </TableLeft>
                         </Col>
-                        <Col style={{ paddingLeft: '0.75rem', paddingRight: 0 }}>
+                        <Col md={6} sm={12} className="pl-0 pr-0 mt-3 mt-md-0 pl-md-1">
                             <Paragraph>Lowest avg age</Paragraph>
                             <TableRight>
                                 <Table className="m-0" responsive>
@@ -150,10 +142,7 @@ const Top5 = () => {
                     </Row>
                 </Container>
             </CardBody>
-            <div className="footer">
-
-            </div>
-        </Card>
+        </CardComponent>
     );
 }
 
