@@ -5,7 +5,6 @@
 
 <div align="center">
 
-[![Hackathon](https://img.shields.io/badge/hackathon-name-orange.svg)](http://hackathon.url.com)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
@@ -57,23 +56,21 @@ completed, and understood, it becomes easier to provide a solution for solving t
 
 ## ⛓️ Dependencies <a name = "dependencies"></a>
 
-- react = Framework used, 
-- styled-components = Most used,
-- bootstrap, 
-- react-bootstrap, 
-- axios = to fetch API, 
-- react-icons, 
-- react-router-dom,
-- web-vitals
+- React = Framework used, 
+- Styled-components = Most used,
+- Bootstrap, 
+- React-bootstrap, 
+- Axios = to fetch API, 
+- React-icons, 
+- React-router-dom,
+- Web-vitals
 
 ## ⛓️ Limitations <a name = "limitations"></a>
 
-- What are the dependencies of your project?
-- Describe each limitation in detailed but concise terms
-- Explain why each limitation exists
-- Provide the reasons why each limitation could not be overcome using the method(s) chosen to acquire.
-- Assess the impact of each limitation in relation to the overall findings and conclusions of your project, and if
-  appropriate, describe how these limitations could point to the need for further research.
+- Describe each limitation in detailed:
+> - Limitations
+- Why each limitation exists
+
 
 ## 🚀 Future Scope <a name = "future_scope"></a>
 
